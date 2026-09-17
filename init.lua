@@ -82,15 +82,54 @@ require("lazy").setup({
         { name = "cmdline" },
       }),
     })
-  end,	}
+  end,	},
+  {
+  "folke/which-key.nvim",
+  event = "VeryLazy",
+  opts = {
+    icons   = { mappings = false, breadcrumb = "", separator = " ", group = "" },
+
+    replace = {
+      key  = { function(k) return k end },
+      desc = { },
+    },
+
+    filter  = function(m) return m.desc and m.desc ~= "" end,
+
+    plugins = {
+      marks=false, registers=false, spelling={enabled=false},
+      presets = { operators=false, motions=false, text_objects=false,
+                  windows=false, nav=false, z=false, g=false },
+    },
+  },
+  keys = {
+    {
+      "<leader>?",
+      function()
+        require("which-key").show({ global = false })
+      end,
+      desc = "Buffer Local Keymaps (which-key)",
+    },
+  },
+}
 
   },
+  
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "onedark" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
+
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = '●', -- 诊断信息前的符号，可自定义
+    source = 'if_many', -- 当存在多个诊断来源时显示来源
+    severity = {
+      min = vim.diagnostic.severity.WARN -- 只显示警告及以上级别
+    },
+  }})
 
 vim.lsp.config["hls"] = {
   cmd = { "haskell-language-server-wrapper", "--lsp" },
