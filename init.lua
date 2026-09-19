@@ -22,6 +22,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.keymap.set({ "i" }, "<C-c>", "<Esc>")
 
 -- Setup lazy.nvim
 require("lazy").setup({
